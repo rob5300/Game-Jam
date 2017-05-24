@@ -229,8 +229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5006e30de876b341afb73d553005501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Joins:
+  JoinPoints:
   - {fileID: 914531976}
+  ConnectedPieces: []
+  JoinedTo: {fileID: 0}
 --- !u!1 &1219838641
 GameObject:
   m_ObjectHideFlags: 0

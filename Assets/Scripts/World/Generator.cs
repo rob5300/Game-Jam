@@ -27,8 +27,10 @@ public class Generator : MonoBehaviour {
 
     public void JoinCorridor(Vector3 JoinPosition, Piece ParentPiece)
     {
-        List<Corridor> usableCorridors = Corridor.Corridors.Select(x => x.)
+        //We get usable pieces, ones that have join points on the correct side to avoid overlapping to join to opposite sides of a piece.
+        List<Corridor> usableCorridors = Corridor.Corridors.Where(x => x.GetSideJoinsForPosition(JoinPosition).Length > 0).ToList();
         Corridor toPlace = usableCorridors[Random.Range(0, Corridor.Corridors.Count - 1)];
-
+        GameObject newPiece = Instantiate(toPlace.gameObject,JoinPosition + toPlace.GetSideJoinsForPosition(JoinPosition)[0], Quaternion.identity);
+        newPiece.GetComponent<Corridor>().JoinedTo = ParentPiece;
     }
 }
