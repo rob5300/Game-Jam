@@ -35,7 +35,10 @@ public class Movement : MonoBehaviour {
         newVelocity = new Vector2(Horizontal, Vertical).normalized;
         newVelocity *= MovementMultiplier;
 
-        rb.velocity = newVelocity;
+        if (!(Horizontal == 0 && Vertical == 0))
+        {
+            rb.velocity = newVelocity; 
+        }
 	}
 
     void Animate()
@@ -43,13 +46,13 @@ public class Movement : MonoBehaviour {
         float angle = Aim.transform.rotation.eulerAngles.z;
         animator.SetFloat("Angle", angle);
 
-        if(rb.velocity.x == 0 && rb.velocity.y == 0)
+        if((rb.velocity.x < 0.2 && rb.velocity.y < 0.2) && (rb.velocity.x > -0.2 && rb.velocity.y > -0.2))
         {
-            animator.speed = 0;
+            animator.SetBool("Moving", false);
         }
         else
         {
-            animator.speed = 1;
+            animator.SetBool("Moving", true);
         }
     }
 }
