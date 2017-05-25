@@ -63,6 +63,7 @@ public class Generator : MonoBehaviour {
         newRoom.JoinPoints.Remove(newRoom.JoinPoints.Where(x => x.position == newPieceJoinPos).First());
         newPiece.transform.position += newPiece.transform.position - newPieceJoinPos;
         newRoom.JoinedTo = ParentPiece;
+        newRoom.OnPlace();
 
         //We now need to remove these joins from both the placed piece and current piece to ensure we know what joins are populated.
         //We have to use linq to find the correct transform to remove. Transforms are used as it makes creating the joins easier in editor.

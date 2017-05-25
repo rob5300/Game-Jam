@@ -11,4 +11,8 @@ public class Room : Piece {
         Rooms = Resources.LoadAll<Room>("Rooms").ToList();
     }
 	
+    public void OnPlace()
+    {
+
+    }
 }
