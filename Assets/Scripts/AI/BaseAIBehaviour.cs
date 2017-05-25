@@ -56,10 +56,22 @@ public class BaseAIBehaviour : MonoBehaviour
 		}
 		else if (PlayerSeen && !IsRanged)
 		{
-			_rb.velocity = transform.up * 2;
 			Vector2 playerPos = Movement.Player.transform.position;
 			LookAt2D(playerPos);
-			//handle melee behaviour here
+			float distance = Vector2.Distance(transform.position, playerPos);
+			if (distance < 0)
+			{
+				distance = -distance;
+			}
+			if (distance < 1)
+			{
+				_rb.velocity = Vector2.zero;
+				//ATTACK BITCHES
+			}
+			else
+			{
+				_rb.velocity = transform.up * 2;
+			}
 		}
 		else if (PlayerSeen && IsRanged)
 		{
@@ -74,7 +86,22 @@ public class BaseAIBehaviour : MonoBehaviour
 		}
 		else if (PlayerSeen && IsStrong)
 		{
-			//I have no idea what to do here
+			Vector2 playerPos = Movement.Player.transform.position;
+			LookAt2D(playerPos);
+			float distance = Vector2.Distance(transform.position, playerPos);
+			if (distance < 0)
+			{
+				distance = -distance;
+			}
+			if (distance < 1)
+			{
+				_rb.velocity = Vector2.zero;
+				StartCoroutine(Explode());
+			}
+			else
+			{
+				_rb.velocity = transform.up * 4;
+			}
 		}
 		else
 		{
@@ -85,6 +112,13 @@ public class BaseAIBehaviour : MonoBehaviour
 		{
 			_rangedCoolDown += Time.deltaTime;
 		}
+	}
+
+	private IEnumerator Explode()
+	{
+		yield return new WaitForSeconds(1.5f);
+		//add animation here and trigger collider logic
+		Destroy(gameObject);
 	}
 
 	private void LookAt2D(Vector3 target)
