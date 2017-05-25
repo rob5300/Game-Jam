@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +12,6 @@ public class Game {
 
     public static void LoadItems()
     {
-
+        Items = Resources.LoadAll<Item>("Items").ToList();
     }
 }
