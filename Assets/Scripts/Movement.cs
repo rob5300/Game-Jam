@@ -7,18 +7,28 @@ public class Movement : MonoBehaviour {
 
     public float MovementMultiplier = 5f;
 	public static GameObject Player;
+    public Transform Aim;
 
     Rigidbody2D rb;
+    Animator animator;
     float Horizontal = 0f;
     float Vertical = 0f;
     Vector2 newVelocity;
 
-	void Start () {
+	void Start ()
+    {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 		Player = gameObject;
 	}
-	
-	void Update () {
+
+    private void Update()
+    {
+        Animate();
+    }
+
+    void FixedUpdate ()
+    {
         Horizontal = Input.GetAxis("Horizontal");
         Vertical = Input.GetAxis("Vertical");
 
@@ -27,4 +37,19 @@ public class Movement : MonoBehaviour {
 
         rb.velocity = newVelocity;
 	}
+
+    void Animate()
+    {
+        float angle = Aim.transform.rotation.eulerAngles.z;
+        animator.SetFloat("Angle", angle);
+
+        if(rb.velocity.x == 0 && rb.velocity.y == 0)
+        {
+            animator.speed = 0;
+        }
+        else
+        {
+            animator.speed = 1;
+        }
+    }
 }
