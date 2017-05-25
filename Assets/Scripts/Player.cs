@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour {
 
@@ -14,7 +14,9 @@ public class Player : MonoBehaviour {
 
 	void Start () {
         if (!player) player = this;
-	}
+
+        UI.ui.Backgrounds[SelectedSlot].color = Color.yellow;
+    }
 	
     void Damage(float amount)
     {
@@ -36,14 +38,20 @@ public class Player : MonoBehaviour {
 
     public void Update()
     {
+        //Scrolling
         float mouseWheel = Input.GetAxis("Mouse ScrollWheel");
         if (mouseWheel > 0.01)
         {
-            ChangeSlot(SelectedSlot + 1);
+            ChangeSlot(SelectedSlot - 1);
         }
         else if (mouseWheel < -0.01)
         {
-            ChangeSlot(SelectedSlot - 1);
+            ChangeSlot(SelectedSlot + 1);
+        }
+        //Left click to attack.
+        if (Input.GetMouseButtonDown(0))
+        {
+            Attack();
         }
     }
 
@@ -52,11 +60,17 @@ public class Player : MonoBehaviour {
         if (slotnumber < Inventory.Count && slotnumber > -1)
         {
             SelectedSlot = slotnumber;
+            foreach (Image image in UI.ui.Backgrounds)
+            {
+                image.color = Color.white;
+            }
+            UI.ui.Backgrounds[SelectedSlot].color = Color.yellow;
         }
     }
 
     public void PickupItem(Item item)
     {
+        Debug.Log("Picked up item: " + item.name);
         if(Inventory[SelectedSlot].item != null)
         {
             Inventory[SelectedSlot].item.transform.position = item.transform.position;
@@ -69,28 +83,14 @@ public class Player : MonoBehaviour {
         item.transform.parent = transform;
 
         //Update UI
-        switch (SelectedSlot)
-        {
-            case 0:
-                UI.ui.Slot0.sprite = item.sprite;
-                UI.ui.Slot0.gameObject.SetActive(true);
-                break;
-            case 1:
-                UI.ui.Slot1.sprite = item.sprite;
-                UI.ui.Slot1.gameObject.SetActive(true);
-                break;
-            case 2:
-                UI.ui.Slot2.sprite = item.sprite;
-                UI.ui.Slot2.gameObject.SetActive(true);
-                break;
-            case 3:
-                UI.ui.Slot3.sprite = item.sprite;
-                UI.ui.Slot3.gameObject.SetActive(true);
-                break;
-            case 4:
-                UI.ui.Slot4.sprite = item.sprite;
-                UI.ui.Slot4.gameObject.SetActive(true);
-                break;
-        }
+        UI.ui.Slots[SelectedSlot].sprite = item.sprite;
+        UI.ui.Slots[SelectedSlot].gameObject.SetActive(true);
+    }
+
+    public void Attack()
+    {
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + GetComponent<Movement>().Aim.up * 1, 0.5f, Vector2.zero);
+        
+
     }
 }

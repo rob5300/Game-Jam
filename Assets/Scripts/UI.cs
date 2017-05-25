@@ -5,11 +5,8 @@ public class UI : MonoBehaviour {
 
     public static UI ui;
 
-    public Image Slot0;
-    public Image Slot1;
-    public Image Slot2;
-    public Image Slot3;
-    public Image Slot4;
+    public Image[] Slots;
+    public Image[] Backgrounds;
 
     public void Start()
     {

@@ -16,7 +16,6 @@ public class PlayerDetector : MonoBehaviour {
 
 	void Start()
 	{
-		StartCoroutine(SpawnMobs());
 		_mobs = transform.parent.GetComponentsInChildren<BaseAIBehaviour>().ToList();
 		Dictionary<string, bool> switches = new Dictionary<string, bool>();
 		switches.Add("Melee", MeleeMobs);
@@ -24,12 +23,13 @@ public class PlayerDetector : MonoBehaviour {
 		switches.Add("Stronger", StrongerMobs);
 		_switchesList = switches.Where(x => x.Value == true).ToList();
 		_partition = (int)Mathf.Floor(AmountOfMobs / _switchesList.Count);
+		StartCoroutine(SpawnMobs());
 	}
 
 	private IEnumerator SpawnMobs()
 	{
-		if (_switchesList != null)
-		{
+		//if (_switchesList != null)
+		//{
 			foreach (KeyValuePair<string, bool> pair in _switchesList)
 			{
 				for (int i = 0; i < _partition; i++)
@@ -49,7 +49,7 @@ public class PlayerDetector : MonoBehaviour {
 					yield return new WaitForSeconds(1f);
 				}
 			}
-		}
+		//}
 	}
 
 	void OnTriggerEnter2D(Collider2D collision)
