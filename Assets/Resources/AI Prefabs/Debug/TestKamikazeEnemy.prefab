@@ -11,21 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1758033591295928}
   m_IsPrefabParent: 1
---- !u!1 &1344855495508580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4749610480266264}
-  m_Layer: 0
-  m_Name: Muzzle
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1758033591295928
 GameObject:
   m_ObjectHideFlags: 0
@@ -38,8 +23,9 @@ GameObject:
   - component: {fileID: 50951640037793554}
   - component: {fileID: 61948126109904808}
   - component: {fileID: 114848185123802050}
+  - component: {fileID: 58941056105964158}
   m_Layer: 0
-  m_Name: TestRangedEnemy
+  m_Name: TestKamikazeEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,24 +38,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758033591295928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4705733, y: 4.2707543, z: 0}
+  m_LocalPosition: {x: -1.33, y: -0.19, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
-  m_Children:
-  - {fileID: 4749610480266264}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4749610480266264
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1344855495508580}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.109, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4323510665216924}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50951640037793554
@@ -92,6 +64,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!58 &58941056105964158
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758033591295928}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.01153779}
+  serializedVersion: 2
+  m_Radius: 0.15
 --- !u!61 &61948126109904808
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -128,11 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5d718e92385d7346899f8c92034df25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsRanged: 1
-  IsStrong: 0
-  Muzzle: {fileID: 1344855495508580}
-  BulletPrefab: {fileID: 1717531905011422, guid: 33fd4e67a0a114e4481599fb17ad7282,
-    type: 2}
+  IsRanged: 0
+  IsStrong: 1
+  Muzzle: {fileID: 0}
+  BulletPrefab: {fileID: 0}
   Patrol: 0
   PlayerSeen: 0
 --- !u!212 &212481011851671376

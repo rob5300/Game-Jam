@@ -4,15 +4,19 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-public class PlayerDetector : MonoBehaviour {
+public class PlayerDetector : MonoBehaviour
+{
 
 	public int AmountOfMobs;
 	public bool MeleeMobs;
 	public bool RangedMobs;
-	public bool StrongerMobs;
+	public bool KamikazeMobs;
 	private List<BaseAIBehaviour> _mobs;
 	private List<KeyValuePair<string, bool>> _switchesList;
 	private int _partition;
+	public GameObject MeleePrefab;
+	public GameObject RangedPrefab;
+	public GameObject KamikazePrefab;
 
 	void Start()
 	{
@@ -20,7 +24,7 @@ public class PlayerDetector : MonoBehaviour {
 		Dictionary<string, bool> switches = new Dictionary<string, bool>();
 		switches.Add("Melee", MeleeMobs);
 		switches.Add("Ranged", RangedMobs);
-		switches.Add("Stronger", StrongerMobs);
+		switches.Add("Kamikaze", KamikazeMobs);
 		_switchesList = switches.Where(x => x.Value == true).ToList();
 		_partition = (int)Mathf.Floor(AmountOfMobs / _switchesList.Count);
 		StartCoroutine(SpawnMobs());
@@ -30,25 +34,25 @@ public class PlayerDetector : MonoBehaviour {
 	{
 		//if (_switchesList != null)
 		//{
-			foreach (KeyValuePair<string, bool> pair in _switchesList)
+		foreach (KeyValuePair<string, bool> pair in _switchesList)
+		{
+			for (int i = 0; i < _partition; i++)
 			{
-				for (int i = 0; i < _partition; i++)
+				if (pair.Key == "Melee")
 				{
-					if (pair.Key == "Melee")
-					{
-						//generate melee here and scale with the difficulty of the area
-					}
-					else if (pair.Key == "Ranged")
-					{
-						//same as melee but for ranged
-					}
-					else if (pair.Key == "Stronger")
-					{
-						//matt pls if you don't know what this is for by now you need your MTA revoked
-					}
-					yield return new WaitForSeconds(1f);
+					_mobs.Add(Instantiate(MeleePrefab, transform.parent).GetComponent<BaseAIBehaviour>());
 				}
+				else if (pair.Key == "Ranged")
+				{
+					_mobs.Add(Instantiate(RangedPrefab, transform.parent).GetComponent<BaseAIBehaviour>());
+				}
+				else if (pair.Key == "Kamikaze")
+				{
+					_mobs.Add(Instantiate(KamikazePrefab, transform.parent).GetComponent<BaseAIBehaviour>());
+				}
+				yield return new WaitForSeconds(1f);
 			}
+		}
 		//}
 	}
 

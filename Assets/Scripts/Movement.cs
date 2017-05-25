@@ -37,7 +37,7 @@ public class Movement : MonoBehaviour {
 
         if (!(Horizontal == 0 && Vertical == 0))
         {
-            rb.velocity = newVelocity; 
+            rb.velocity = newVelocity;
         }
 	}
 
