@@ -6,6 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 
     public float MovementMultiplier = 5f;
+	public static GameObject Player;
 
     Rigidbody2D rb;
     float Horizontal = 0f;
@@ -14,6 +15,7 @@ public class Movement : MonoBehaviour {
 
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
+		Player = gameObject;
 	}
 	
 	void Update () {
