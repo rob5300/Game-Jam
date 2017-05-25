@@ -38,7 +38,6 @@ public class BaseAIBehaviour : MonoBehaviour
 		}
 		if (Patrol)
 		{
-			_rb.velocity = transform.up * 2;
 			float result = Vector2.Distance(transform.position, _patrolPositions[_pointIndex].transform.position);
 			if (result < 0)
 			{
@@ -53,8 +52,9 @@ public class BaseAIBehaviour : MonoBehaviour
 				}
 				LookAt2D(_patrolPositions[_pointIndex].transform.position);
 			}
+			_rb.velocity = transform.up * 2;
 		}
-		else if (PlayerSeen && !IsRanged)
+		else if (PlayerSeen && !IsRanged && !IsStrong)
 		{
 			Vector2 playerPos = Movement.Player.transform.position;
 			LookAt2D(playerPos);
@@ -73,7 +73,7 @@ public class BaseAIBehaviour : MonoBehaviour
 				_rb.velocity = transform.up * 2;
 			}
 		}
-		else if (PlayerSeen && IsRanged)
+		else if (PlayerSeen && IsRanged && !IsStrong)
 		{
 			_rb.velocity = Vector2.zero;
 			Vector2 playerPos = Movement.Player.transform.position;
@@ -95,7 +95,7 @@ public class BaseAIBehaviour : MonoBehaviour
 			}
 			if (distance < 1)
 			{
-				_rb.velocity = Vector2.zero;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 				StartCoroutine(Explode());
 			}
 			else
@@ -116,7 +116,7 @@ public class BaseAIBehaviour : MonoBehaviour
 
 	private IEnumerator Explode()
 	{
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(0.5f);
 		//add animation here and trigger collider logic
 		Destroy(gameObject);
 	}
