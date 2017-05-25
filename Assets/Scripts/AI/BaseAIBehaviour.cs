@@ -9,6 +9,7 @@ public class BaseAIBehaviour : MonoBehaviour
 	private List<GameObject> _patrolPositions;
 	private int _pointIndex;
 	public bool IsRanged;
+	public bool IsStrong;
 	public GameObject BulletPrefab;
 	private Rigidbody2D _rb;
 	public bool Patrol;
@@ -32,9 +33,9 @@ public class BaseAIBehaviour : MonoBehaviour
 		{
 			Patrol = false;
 		}
-		_rb.velocity = transform.up * 2;
 		if (Patrol)
 		{
+			_rb.velocity = transform.up * 2;
 			float result = Vector2.Distance(transform.position, _patrolPositions[_pointIndex].transform.position);
 			if (result < 0)
 			{
@@ -52,16 +53,21 @@ public class BaseAIBehaviour : MonoBehaviour
 		}
 		else if (PlayerSeen && !IsRanged)
 		{
+			_rb.velocity = transform.up * 2;
 			Vector2 playerPos = Movement.Player.transform.position;
 			LookAt2D(playerPos);
 			//handle melee behaviour here
 		}
 		else if (PlayerSeen && IsRanged)
 		{
-			_rb.isKinematic = true;
+			_rb.velocity = Vector2.zero;
 			Vector2 playerPos = Movement.Player.transform.position;
 			LookAt2D(playerPos);
 			//shoot here
+		}
+		else if (PlayerSeen && IsStrong)
+		{
+			//I have no idea what to do here
 		}
 		else
 		{
