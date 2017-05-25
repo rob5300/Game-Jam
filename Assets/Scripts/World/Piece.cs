@@ -4,9 +4,10 @@ using UnityEngine;
 using System;
 
 public class Piece : MonoBehaviour {
+    public enum Side { Top, Bottom, Left, Right};
 
-    public Transform[] JoinPoints;
-    public List<Piece> ConnectedPieces = new List<Piece>();
+    public List<Transform> JoinPoints;
+    public Dictionary<Vector3, Piece> ConnectedPieces = new Dictionary<Vector3, Piece>();
     public Piece JoinedTo;
 
     public Vector3[] GetTopJoins()
@@ -54,9 +55,59 @@ public class Piece : MonoBehaviour {
         }
     }
 
+    public Side GetSideForJoin(Vector3 join)
+    {
+        double angle = GetAngle(transform.position, join);
+        if ((angle >= 0 && angle < 45) || (angle <= 0 && angle > -45))
+        {
+            return Side.Top;
+        }
+        else if (angle > 45 && angle <= 135)
+        {
+            return Side.Right;
+        }
+        else if ((angle > 135 && angle <= 180) || (angle < -135 && angle >= -180))
+        {
+            return Side.Bottom;
+        }
+        else if (angle > -135 && angle < -45)
+        {
+            return Side.Left;
+        }
+        else
+        {
+            Debug.LogError("GetSideForJoin angle was out of range.");
+            return Side.Top;
+        }
+    }
+
     public static double GetAngle(Vector3 from, Vector3 to)
     {
         Vector2 delta = new Vector2(to.y - from.y, to.x - from.x).normalized;
         return (Math.Atan2(delta.y, delta.x) * 180) / Math.PI;
+    }
+
+    public Vector3[] GetJoinsForSide(Side side)
+    {
+        if (side == Side.Top)
+        {
+            return GetTopJoins();
+        }
+        else if(side == Side.Right)
+        {
+            return GetRightJoins();
+        }
+        else if(side == Side.Bottom)
+        {
+            return GetBottomJoins();
+        }
+        else if(side == Side.Left)
+        {
+            return GetLeftJoins();
+        }
+        else
+        {
+            return null;
+        }
     }
 }
