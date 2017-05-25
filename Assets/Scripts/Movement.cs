@@ -46,7 +46,7 @@ public class Movement : MonoBehaviour {
         float angle = Aim.transform.rotation.eulerAngles.z;
         animator.SetFloat("Angle", angle);
 
-        if(rb.velocity.x == 0 && rb.velocity.y == 0)
+        if((rb.velocity.x < 0.2 && rb.velocity.y < 0.2) && (rb.velocity.x > -0.2 && rb.velocity.y > -0.2))
         {
             animator.SetBool("Moving", false);
         }
