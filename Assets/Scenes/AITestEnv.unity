@@ -2097,9 +2097,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8958c4f25e9fa499d046f1c85202b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AmountOfMobs: 6
-  MeleeMobs: 1
-  RangedMobs: 1
+  AmountOfMobs: 4
+  MeleeMobs: 0
+  RangedMobs: 0
   KamikazeMobs: 1
   MeleePrefab: {fileID: 1758033591295928, guid: 2f0982829f099dd4cbde69dfc144a014,
     type: 2}

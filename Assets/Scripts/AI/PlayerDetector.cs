@@ -40,15 +40,15 @@ public class PlayerDetector : MonoBehaviour
 			{
 				if (pair.Key == "Melee")
 				{
-					Instantiate(MeleePrefab, transform.parent);
+					_mobs.Add(Instantiate(MeleePrefab, transform.parent).GetComponent<BaseAIBehaviour>());
 				}
 				else if (pair.Key == "Ranged")
 				{
-					Instantiate(RangedPrefab, transform.parent);
+					_mobs.Add(Instantiate(RangedPrefab, transform.parent).GetComponent<BaseAIBehaviour>());
 				}
 				else if (pair.Key == "Kamikaze")
 				{
-					Instantiate(KamikazePrefab, transform.parent);
+					_mobs.Add(Instantiate(KamikazePrefab, transform.parent).GetComponent<BaseAIBehaviour>());
 				}
 				yield return new WaitForSeconds(1f);
 			}
