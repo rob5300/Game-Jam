@@ -2817,7 +2817,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1296680943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3000,9 +3000,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1219838641}
-  lerpfactor: 0.3
+  lerpfactor: 0.2
   Offset: {x: 0, y: 0, z: 0}
-  basic: 0
+  basic: 1
 --- !u!1 &1732671698
 GameObject:
   m_ObjectHideFlags: 0

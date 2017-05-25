@@ -97,7 +97,7 @@ public class Generator : MonoBehaviour {
         //We have to regain the side position vector3 as it has moved and will not be the same anymore and will not remove properly.
         ParentPiece.JoinPoints.Remove(ParentPiece.JoinPoints.Where(x => x.position == JoinPosition).First());
         CurrentPiece = newRoom;
-        ProcessNext();
+        //ProcessNext();
     }
 
     public void JoinCorridor(Vector3 JoinPosition, Piece ParentPiece)
@@ -159,7 +159,7 @@ public class Generator : MonoBehaviour {
         {
             CurrentPiece = newCorridor;
         }
-        ProcessNext();
+        //ProcessNext();
     }
 
     public void ProcessNext()
