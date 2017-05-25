@@ -7,6 +7,9 @@ public class ItemPlacer : MonoBehaviour {
         {
             Game.LoadItems();
         }
+
+        Instantiate(Game.Items[Random.Range(0, Game.Items.Count)], transform.position, Quaternion.identity);
+        Destroy(gameObject);
 	}
 	
 }
