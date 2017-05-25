@@ -7,9 +7,9 @@ public class Item : MonoBehaviour {
     public int Damage = 1;
     public float CostPerUse = 1f;
 
-    public void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        Player.player.PickupItem(this);
+        if(other.tag == "Player") Player.player.PickupItem(this);
     }
 
 }
