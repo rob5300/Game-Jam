@@ -35,7 +35,10 @@ public class Movement : MonoBehaviour {
         newVelocity = new Vector2(Horizontal, Vertical).normalized;
         newVelocity *= MovementMultiplier;
 
-        rb.velocity = newVelocity;
+        if (!(Horizontal == 0 && Vertical == 0))
+        {
+            rb.velocity = newVelocity; 
+        }
 	}
 
     void Animate()
@@ -45,11 +48,11 @@ public class Movement : MonoBehaviour {
 
         if(rb.velocity.x == 0 && rb.velocity.y == 0)
         {
-            animator.speed = 0;
+            animator.SetBool("Moving", false);
         }
         else
         {
-            animator.speed = 1;
+            animator.SetBool("Moving", true);
         }
     }
 }
