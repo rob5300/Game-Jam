@@ -10,14 +10,17 @@ public class BaseAIBehaviour : MonoBehaviour
 	private int _pointIndex;
 	public bool IsRanged;
 	public bool IsStrong;
+	public GameObject Muzzle;
 	public GameObject BulletPrefab;
 	private Rigidbody2D _rb;
 	public bool Patrol;
 	public bool PlayerSeen;
 	private float _shootingCooldown;
+	private float _rangedCoolDown;
 
 	void Start()
 	{
+		_rangedCoolDown = 0f;
 		_pointIndex = 1;
 		_patrolPositions = transform.parent.GetComponentsInChildren<Transform>().Where(x => x.name.Contains("Patrol Point")).OrderBy(x => x.name).Select(x => x.gameObject).ToList();
 		if (transform.position != _patrolPositions[0].transform.position)
@@ -63,7 +66,11 @@ public class BaseAIBehaviour : MonoBehaviour
 			_rb.velocity = Vector2.zero;
 			Vector2 playerPos = Movement.Player.transform.position;
 			LookAt2D(playerPos);
-			//shoot here
+			if (_rangedCoolDown > 1f)
+			{
+				Instantiate(BulletPrefab, Muzzle.transform.position, Muzzle.transform.rotation);
+				_rangedCoolDown = 0f;
+			}
 		}
 		else if (PlayerSeen && IsStrong)
 		{
@@ -71,11 +78,13 @@ public class BaseAIBehaviour : MonoBehaviour
 		}
 		else
 		{
-			_rb.isKinematic = false;
 			Patrol = true;
 			LookAt2D(_patrolPositions[_pointIndex].transform.position);
 		}
-
+		if (IsRanged)
+		{
+			_rangedCoolDown += Time.deltaTime;
+		}
 	}
 
 	private void LookAt2D(Vector3 target)

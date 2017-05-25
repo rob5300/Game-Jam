@@ -28,23 +28,26 @@ public class PlayerDetector : MonoBehaviour {
 
 	private IEnumerator SpawnMobs()
 	{
-		foreach (KeyValuePair<string, bool> pair in _switchesList)
+		if (_switchesList != null)
 		{
-			for (int i = 0; i < _partition; i++)
+			foreach (KeyValuePair<string, bool> pair in _switchesList)
 			{
-				if (pair.Key == "Melee")
+				for (int i = 0; i < _partition; i++)
 				{
-					//generate melee here and scale with the difficulty of the area
+					if (pair.Key == "Melee")
+					{
+						//generate melee here and scale with the difficulty of the area
+					}
+					else if (pair.Key == "Ranged")
+					{
+						//same as melee but for ranged
+					}
+					else if (pair.Key == "Stronger")
+					{
+						//matt pls if you don't know what this is for by now you need your MTA revoked
+					}
+					yield return new WaitForSeconds(1f);
 				}
-				else if (pair.Key == "Ranged")
-				{
-					//same as melee but for ranged
-				}
-				else if (pair.Key == "Stronger")
-				{
-					//matt pls if you don't know what this is for by now you need your MTA revoked
-				}
-				yield return new WaitForSeconds(1f);
 			}
 		}
 	}
