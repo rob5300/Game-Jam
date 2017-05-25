@@ -12,14 +12,18 @@ public class BaseAIBehaviour : MonoBehaviour
 	public bool IsStrong;
 	public GameObject Muzzle;
 	public GameObject BulletPrefab;
-	private Rigidbody2D _rb;
+	public Rigidbody2D Rb;
 	public bool Patrol;
 	public bool PlayerSeen;
 	private float _shootingCooldown;
 	private float _rangedCoolDown;
+	public float Health;
+	public bool IsHit;
+	public bool CanShoot;
 
 	void Start()
 	{
+		IsHit = false; 
 		_rangedCoolDown = 0f;
 		_pointIndex = 1;
 		_patrolPositions = transform.parent.GetComponentsInChildren<Transform>().Where(x => x.name.Contains("Patrol Point")).OrderBy(x => x.name).Select(x => x.gameObject).ToList();
@@ -27,7 +31,7 @@ public class BaseAIBehaviour : MonoBehaviour
 		{
 			transform.position = _patrolPositions[0].transform.position;
 		}
-		_rb = GetComponent<Rigidbody2D>();
+		Rb = GetComponent<Rigidbody2D>();
 	}
 
 	private void FixedUpdate()
@@ -52,7 +56,7 @@ public class BaseAIBehaviour : MonoBehaviour
 				}
 				LookAt2D(_patrolPositions[_pointIndex].transform.position);
 			}
-			_rb.velocity = transform.up * 2;
+			Rb.velocity = transform.up * 2;
 		}
 		else if (PlayerSeen && !IsRanged && !IsStrong)
 		{
@@ -65,23 +69,39 @@ public class BaseAIBehaviour : MonoBehaviour
 			}
 			if (distance < 1)
 			{
-				_rb.velocity = Vector2.zero;
+				Rb.velocity = Vector2.zero;
 				//ATTACK BITCHES
 			}
 			else
 			{
-				_rb.velocity = transform.up * 2;
+				if (!IsHit)
+				{
+					Rb.velocity = transform.up * 2;
+				}
+				else if (Rb.velocity == Vector2.zero)
+				{
+					IsHit = false;
+				}
 			}
 		}
 		else if (PlayerSeen && IsRanged && !IsStrong)
 		{
-			_rb.velocity = Vector2.zero;
+			Rb.velocity = Vector2.zero;
 			Vector2 playerPos = Movement.Player.transform.position;
 			LookAt2D(playerPos);
-			if (_rangedCoolDown > 1f)
+			if (_rangedCoolDown > 1f && CanShoot)
 			{
 				Instantiate(BulletPrefab, Muzzle.transform.position, Muzzle.transform.rotation);
 				_rangedCoolDown = 0f;
+			}
+			if (IsHit)
+			{
+				CanShoot = false;
+			}
+			else if (Rb.velocity == Vector2.zero)
+			{
+				IsHit = false;
+				CanShoot = true;
 			}
 		}
 		else if (PlayerSeen && IsStrong)
@@ -95,12 +115,12 @@ public class BaseAIBehaviour : MonoBehaviour
 			}
 			if (distance < 1)
 			{
-				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+				Rb.constraints = RigidbodyConstraints2D.FreezeAll;
 				StartCoroutine(Explode());
 			}
 			else
 			{
-				_rb.velocity = transform.up * 4;
+				Rb.velocity = transform.up * 4;
 			}
 		}
 		else
@@ -128,6 +148,4 @@ public class BaseAIBehaviour : MonoBehaviour
 		float angle = (Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg) - 90;
 		transform.rotation = Quaternion.Euler(0, 0, angle);
 	}
-
-
 }

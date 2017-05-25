@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     public List<ItemSlot> Inventory = new List<ItemSlot>() { new ItemSlot(0), new ItemSlot(1), new ItemSlot(2), new ItemSlot(3), new ItemSlot(4) };
     public Dictionary<int, GameObject> itemObjects;
     public int SelectedSlot = 0;
+	public IUseable SelectedItem;
 
 	void Start () {
         if (!player) player = this;
@@ -65,7 +66,11 @@ public class Player : MonoBehaviour {
                 image.color = Color.white;
             }
             UI.ui.Backgrounds[SelectedSlot].color = Color.yellow;
-        }
+			if (SelectedItem != null)
+			{
+				SelectedItem = Inventory[SelectedSlot].item.GetComponent<IUseable>();
+			}
+		}
     }
 
     public void PickupItem(Item item)
@@ -90,7 +95,10 @@ public class Player : MonoBehaviour {
     public void Attack()
     {
         RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + GetComponent<Movement>().Aim.up * 1, 0.5f, Vector2.zero);
-        
+		if (hits != null && SelectedItem != null)
+		{
+			SelectedItem.Use(hits);
+		}
 
     }
 }
