@@ -12,7 +12,7 @@ public class Bullet : MonoBehaviour {
 
 	void FixedUpdate()
 	{
-		_rb.velocity = Vector3.forward;
+		_rb.velocity = transform.up;
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
