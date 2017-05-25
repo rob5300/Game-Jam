@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider2D))]
 public class Item : MonoBehaviour {
 
     public string Name = "Item";
@@ -12,4 +13,9 @@ public class Item : MonoBehaviour {
         if(other.tag == "Player") Player.player.PickupItem(this);
     }
 
+    private void Reset()
+    {
+        GetComponent<BoxCollider2D>().isTrigger = true;
+        sprite = GetComponent<SpriteRenderer>().sprite;
+    }
 }
