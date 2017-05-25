@@ -74,29 +74,40 @@ public class Generator : MonoBehaviour {
 
     public void JoinCorridor(Vector3 JoinPosition, Piece ParentPiece)
     {
+        //We have to decide if we will allow a second route to appear, which will go into a loot room.
+        List<Corridor> usableCorridors = new List<Corridor>();
+        if (AllowSecondRoute())
+        {
+            usableCorridors = Corridor.Corridors.Where(x => x.JoinPoints.Count > 2).ToList();
+            CurrentRoutes = 2;
+        }
+        else
+        {
+            usableCorridors = Corridor.Corridors.Where(x => x.JoinPoints.Count < 3).ToList();
+        }
         //We get usable pieces, ones that have join points on the correct side to avoid overlapping to join to opposite sides of a piece.
         //We first get what side this join lives on. Then we get a list of usable corridors with joins on opposing sides.
         Piece.Side side = ParentPiece.GetSideForJoin(JoinPosition);
         Piece.Side chosenSide = Piece.Side.Top;
-        List<Corridor> usableCorridors = new List<Corridor>();
+
         if (side == Piece.Side.Top)
         {
-            usableCorridors = Corridor.Corridors.Where(x => x.GetBottomJoins().Length > 0).ToList();
+            usableCorridors = usableCorridors.Where(x => x.GetBottomJoins().Length > 0).ToList();
             chosenSide = Piece.Side.Bottom;
         }
         else if(side == Piece.Side.Right)
         {
-            usableCorridors = Corridor.Corridors.Where(x => x.GetLeftJoins().Length > 0).ToList();
+            usableCorridors = usableCorridors.Where(x => x.GetLeftJoins().Length > 0).ToList();
             chosenSide = Piece.Side.Left;
         }
         else if (side == Piece.Side.Bottom)
         {
-            usableCorridors = Corridor.Corridors.Where(x => x.GetTopJoins().Length > 0).ToList();
+            usableCorridors = usableCorridors.Where(x => x.GetTopJoins().Length > 0).ToList();
             chosenSide = Piece.Side.Top;
         }
         else if (side == Piece.Side.Left)
         {
-            usableCorridors = Corridor.Corridors.Where(x => x.GetRightJoins().Length > 0).ToList();
+            usableCorridors = usableCorridors.Where(x => x.GetRightJoins().Length > 0).ToList();
             chosenSide = Piece.Side.Right;
         }
 
