@@ -11,6 +11,9 @@ public class Generator : MonoBehaviour {
     List<Piece> PlacedPieces = new List<Piece>();
     int CurrentRoutes = 1;
 
+    public int FramesPerCheck = 5;
+    int elapsedFrames = 0;
+
     void Start()
     {
         //Set current piece to the starting piece,
@@ -23,6 +26,30 @@ public class Generator : MonoBehaviour {
         JoinCorridor(CurrentPiece.JoinPoints[0].position, CurrentPiece);
     }
 
+    public void Update()
+    {
+        elapsedFrames++;
+        if(elapsedFrames >= FramesPerCheck)
+        {
+            elapsedFrames = 0;
+            GenerationUpdate();
+        }
+    }
+
+    public void GenerationUpdate()
+    {
+        for(int i=0; i < PlacedPieces.Count; i++)
+        {
+            Piece piece = PlacedPieces[i];
+            if((piece.transform.position.y + 20) < Camera.main.transform.position.y)
+            {
+                PlacedPieces.Remove(piece);
+                Destroy(piece.gameObject);
+                i--;
+            }
+        }
+        ProcessNext();
+    }
 
     public void JoinRoom(Vector3 JoinPosition, Piece ParentPiece)
     {
