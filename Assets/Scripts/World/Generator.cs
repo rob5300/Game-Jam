@@ -21,7 +21,7 @@ public class Generator : MonoBehaviour {
         CurrentPiece = StartingRoom;
         Corridor.Load();
         Room.Load();
-
+		print(Game.DifficultyMultiplier);
         //Join and place a Corridor on the first join position.
         JoinCorridor(CurrentPiece.JoinPoints[0].position, CurrentPiece);
     }

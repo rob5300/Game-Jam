@@ -136,6 +136,10 @@ public class Player : MonoBehaviour
 		{
 			return;
 		}
+		else if (SelectedItem == null && Inventory[SelectedSlot].item != null)
+		{
+			SelectedItem = Inventory[SelectedSlot].item.GetComponent<IUseable>();
+		}
 		if (Inventory[SelectedSlot].item.SelectedItemType == ItemType.BouncyGun || Inventory[SelectedSlot].item.SelectedItemType == ItemType.DuckBazooka)
 		{
 			SelectedItem.Use();

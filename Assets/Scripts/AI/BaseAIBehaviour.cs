@@ -38,7 +38,20 @@ public class BaseAIBehaviour : MonoBehaviour
 			transform.position = _patrolPositions[0].transform.position;
 		}
 		Rb = GetComponent<Rigidbody2D>();
-		Tier = Game.DistanceDifficulty / Game.DistanceInterval;
+		int multiplier = 0;
+		if (Game.DifficultyMultiplier == PlayerDifficultyMultiplier.Easy)
+		{
+			multiplier = 1;
+		}
+		else if (Game.DifficultyMultiplier == PlayerDifficultyMultiplier.Medium)
+		{
+			multiplier = 2;
+		}
+		else
+		{
+			multiplier = 3;
+		}
+		Tier = (Game.DistanceDifficulty * multiplier) / Game.DistanceInterval;
 		if (Tier < 1)
 		{
 			Tier = 1;

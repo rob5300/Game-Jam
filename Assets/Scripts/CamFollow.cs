@@ -13,14 +13,22 @@ public class CamFollow : MonoBehaviour {
 	
 	void LateUpdate () {
         newPosition = transform.position - Offset;
-
-	    if (basic) {
-            newPosition = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
-        }
-        else {
-            newPosition = new Vector3(Mathf.Lerp(newPosition.x, target.transform.position.x, lerpfactor), Mathf.Lerp(newPosition.y, target.transform.position.y, lerpfactor), transform.position.z);
-        }
-
+		if (target == null)
+		{
+			Time.timeScale = 0f;
+		}
+		else
+		{
+			Time.timeScale = 1f;
+			if (basic)
+			{
+				newPosition = new Vector3(target.transform.position.x, target.transform.position.y, transform.position.z);
+			}
+			else
+			{
+				newPosition = new Vector3(Mathf.Lerp(newPosition.x, target.transform.position.x, lerpfactor), Mathf.Lerp(newPosition.y, target.transform.position.y, lerpfactor), transform.position.z);
+			}
+		}
         transform.position = newPosition + Offset;
     }
 }
