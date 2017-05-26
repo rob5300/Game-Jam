@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 50951640037793554}
   - component: {fileID: 61948126109904808}
   - component: {fileID: 114848185123802050}
+  - component: {fileID: 61076930400309616}
   m_Layer: 0
   m_Name: TestEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,6 +64,31 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &61076930400309616
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758033591295928}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.16, y: 0.16}
+  m_EdgeRadius: 0
 --- !u!61 &61948126109904808
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -101,9 +127,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsRanged: 0
   IsStrong: 0
+  Muzzle: {fileID: 0}
   BulletPrefab: {fileID: 0}
+  Rb: {fileID: 0}
   Patrol: 0
   PlayerSeen: 0
+  Tier: 0
+  Damage: 0
+  Health: 0
+  IsHit: 0
+  CanShoot: 0
 --- !u!212 &212481011851671376
 SpriteRenderer:
   m_ObjectHideFlags: 1

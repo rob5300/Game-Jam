@@ -19,7 +19,7 @@ public class Item : MonoBehaviour
 	{
 		if (SelectedItemType != ItemType.Consumable)
 		{
-			float result = Game.DistanceDifficulty / Game.DistanceInterval;
+			Tier = Game.DistanceDifficulty / Game.DistanceInterval;
 			if (Tier < 1)
 			{
 				Tier = 1;

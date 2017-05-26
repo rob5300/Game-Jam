@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class BasicSword : Item, IUseable
+class PinballSword : Item, IUseable
 {
 	public int DamageIncreaserValue;
 	public int CostIncreaserValue;
@@ -46,7 +47,7 @@ class BasicSword : Item, IUseable
 
 	public void Use(RaycastHit2D[] collisionInfo)
 	{
-		//if (TimeSinceLastAttack > AttackSpeed)
+		//if (TimeSinceLastAttack > AttackSpeed) WHY DOESN'T THIS WORK
 		//{
 		if (collisionInfo != null)
 		{
@@ -60,7 +61,7 @@ class BasicSword : Item, IUseable
 						BaseAIBehaviour enemy = hit.transform.GetComponent<BaseAIBehaviour>();
 						enemy.IsHit = true;
 						enemy.Health -= Damage;
-						enemy.Velocity = -enemy.Velocity;
+						enemy.Velocity = -(enemy.Velocity * 10);
 					}
 				}
 			}
@@ -74,5 +75,12 @@ class BasicSword : Item, IUseable
 	{
 		return;
 	}
+
+	//private IEnumerator AdjustVelocity(BaseAIBehaviour enemy)
+	//{
+	//	enemy.Rb.velocity = -enemy.Velocity;
+	//	yield return new WaitForSeconds(2f);
+	//	enemy.Rb.velocity = enemy.ForwardVelocity;
+	//}
 }
 

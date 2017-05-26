@@ -5,5 +5,6 @@ using System;
 public interface IUseable
 {
 	void Use(RaycastHit2D[] collisionInfo);
+	void Use();
 	void IncrementValues();
 }

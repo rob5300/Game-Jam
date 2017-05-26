@@ -23,10 +23,9 @@ GameObject:
   - component: {fileID: 50951640037793554}
   - component: {fileID: 61948126109904808}
   - component: {fileID: 114848185123802050}
-  - component: {fileID: 58941056105964158}
   m_Layer: 0
   m_Name: TestKamikazeEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -64,21 +63,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58941056105964158
-CircleCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1758033591295928}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.01153779}
-  serializedVersion: 2
-  m_Radius: 0.15
 --- !u!61 &61948126109904808
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -119,8 +103,14 @@ MonoBehaviour:
   IsStrong: 1
   Muzzle: {fileID: 0}
   BulletPrefab: {fileID: 0}
+  Rb: {fileID: 0}
   Patrol: 0
   PlayerSeen: 0
+  Tier: 0
+  Damage: 0
+  Health: 0
+  IsHit: 0
+  CanShoot: 0
 --- !u!212 &212481011851671376
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -154,7 +144,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.6965518, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

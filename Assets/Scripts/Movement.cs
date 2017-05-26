@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour {
 
     public float MovementMultiplier = 5f;
 	public static GameObject Player;
+	public static GameObject Muzzle;
     public Transform Aim;
 
     Rigidbody2D rb;
@@ -20,6 +21,7 @@ public class Movement : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 		Player = gameObject;
+		Muzzle = transform.Find("Muzzle").gameObject;
 	}
 
     private void Update()
