@@ -96,7 +96,28 @@ public class Player : MonoBehaviour
 			Game.DistanceDifficulty += Game.DistanceInterval;
 			PreviousLocation = transform.position;
 		}
-	}
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ChangeSlot(0);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            ChangeSlot(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            ChangeSlot(2);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ChangeSlot(3);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            ChangeSlot(4);
+        }
+    }
 
 	public void ChangeSlot(int slotnumber)
 	{

@@ -36,12 +36,9 @@ public class DuckBullet : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //start animation here
-        _collided = true;
-
-        StartCoroutine(DuckExplode());
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (!_collided) StartCoroutine(DuckExplode());
+        if (collision.transform.tag != "Player") _collided = true;
     }
 
     private IEnumerator DuckExplode()
@@ -65,6 +62,7 @@ public class DuckBullet : MonoBehaviour
                 }
             }
         }
+        GetComponent<Animator>().SetTrigger("Explode");
         yield return new WaitForSeconds(3f); //change this for the animation
         Destroy(gameObject);
     }

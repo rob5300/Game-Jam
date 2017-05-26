@@ -185,7 +185,9 @@ public class BaseAIBehaviour : MonoBehaviour
 		//add animation here and trigger collider logic
 		if (_secondWait)
 		{
-			RaycastHit2D[] rays = Physics2D.CircleCastAll(transform.position, 1.5f, Vector2.zero);
+            GetComponent<Animator>().SetTrigger("Explode");
+            GetComponent<AudioSource>().Play();
+            RaycastHit2D[] rays = Physics2D.CircleCastAll(transform.position, 1.5f, Vector2.zero);
 			if (rays != null)
 			{
 				if (rays.Count() != 0)
@@ -204,9 +206,9 @@ public class BaseAIBehaviour : MonoBehaviour
 				}
 			}
 			_secondWait = false;
-			yield return new WaitForSeconds(0.5f); //change this time to allow for the animation to play and for damage to register
-		}
-		Destroy(gameObject);
+			yield return new WaitForSeconds(1.5f); //change this time to allow for the animation to play and for damage to register
+            Destroy(gameObject);
+        }
 	}
 
 	private void LookAt2D(Vector3 target)

@@ -39,7 +39,7 @@ public class BouncyGun : Item, IUseable
 
 	public void Use()
 	{
-		GameObject bullet = Instantiate(BulletPrefab, Muzzle.transform.position, Muzzle.transform.rotation) as GameObject;
+		GameObject bullet = Instantiate(BulletPrefab, Muzzle.transform.position + Muzzle.transform.up * 1, Muzzle.transform.rotation) as GameObject;
 		bullet.GetComponent<BouncyBullet>().Damage = Damage;
 		//play sound here
 		IncrementValues();

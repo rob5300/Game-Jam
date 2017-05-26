@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50101945744304034}
   - component: {fileID: 58937855576804778}
   - component: {fileID: 82306112879146080}
+  - component: {fileID: 95255910327019444}
   m_Layer: 0
   m_Name: ducky
   m_TagString: Untagged
@@ -38,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1113563506262532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.52, y: 0.6746147, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalPosition: {x: -18.495, y: -2.531, z: 0}
+  m_LocalScale: {x: 1.0212995, y: 1.0212995, z: 0.51064974}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -159,6 +160,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95255910327019444
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113563506262532}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f50b3743ad16ada48a2122c6b187e1f7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114371830496827092
 MonoBehaviour:
   m_ObjectHideFlags: 1
