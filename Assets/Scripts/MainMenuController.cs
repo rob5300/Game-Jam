@@ -9,13 +9,13 @@ public class MainMenuController : MonoBehaviour {
 
 	public void SettingsMenu()
 	{
-		DifficultyCanvas.enabled = true;
+        DifficultyCanvas.gameObject.SetActive(true);
 		MainContainer.SetActive(false);
 	}
 
 	public void MainMenu()
 	{
-		DifficultyCanvas.enabled = false;
+		DifficultyCanvas.gameObject.SetActive(false);
 		MainContainer.SetActive(true);
 	}
 

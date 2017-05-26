@@ -39,6 +39,7 @@ public class BouncyBullet : MonoBehaviour
 		{
 			collision.transform.GetComponent<BaseAIBehaviour>().Health -= (Damage);
 		}
+        GetComponent<AudioSource>().Play();
 		transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, transform.eulerAngles.z + 90f);
 		_currentBounces++;
 		if (_currentBounces >= _maxBounces)

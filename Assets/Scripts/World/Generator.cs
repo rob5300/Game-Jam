@@ -24,6 +24,10 @@ public class Generator : MonoBehaviour {
 		print(Game.DifficultyMultiplier);
         //Join and place a Corridor on the first join position.
         JoinCorridor(CurrentPiece.JoinPoints[0].position, CurrentPiece);
+        while(PlacedPieces.Count < 10)
+        {
+            GenerationUpdate();
+        }
     }
 
     public void Update()

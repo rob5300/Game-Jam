@@ -18,36 +18,42 @@ public class Player : MonoBehaviour
 	public bool IsHit;
 	public float InvincibilityWindow;
 
+    public AudioClip basicSwordSound;
+    public AudioClip pinballSwordSound;
+    public AudioClip duckGunSound;
+
 	void Start()
 	{
 		Health = 100f;
 		IsHit = false;
 		if (!player) player = this;
-
-		UI.ui.Backgrounds[SelectedSlot].color = Color.yellow;
+        UI.ui.Backgrounds[SelectedSlot].color = Color.yellow;
 	}
 
 	public void Damage(float amount)
 	{
-		print(Health);
 		if (!IsHit)
 		{
 			IsHit = true;
 			if (Health - amount < 0)
 			{
 				Health = 0;
-				Die();
+                UI.ui.HealthSlider.value = Health;
+                UI.ui.HealthText.text = "Dead";
+                Die();
 			}
 			else
 			{
 				Health -= amount;
+                UI.ui.HealthSlider.value = Health;
+                UI.ui.HealthText.text = Health + "";
 			}
 		}
 	}
 
 	void Die()
 	{
-		Destroy(gameObject);
+        gameObject.SetActive(false);
 	}
 
 	public void Update()
@@ -106,8 +112,6 @@ public class Player : MonoBehaviour
 			{
 				SelectedItem = Inventory[SelectedSlot].item.GetComponent<IUseable>();
 			}
-
-
 		}
 	}
 
@@ -117,7 +121,9 @@ public class Player : MonoBehaviour
 		if (Inventory[SelectedSlot].item != null)
 		{
 			Inventory[SelectedSlot].item.transform.position = item.transform.position;
-			Inventory[SelectedSlot].item.gameObject.SetActive(true);
+            Inventory[SelectedSlot].item.transform.parent = null;
+            Inventory[SelectedSlot].item.CanPickup = false;
+            Inventory[SelectedSlot].item.gameObject.SetActive(true);
 			Inventory[SelectedSlot].item = null;
 		}
 
@@ -125,8 +131,10 @@ public class Player : MonoBehaviour
 		item.gameObject.SetActive(false);
 		item.transform.parent = transform;
 
-		//Update UI
-		UI.ui.Slots[SelectedSlot].sprite = item.sprite;
+        SelectedItem = Inventory[SelectedSlot].item.GetComponent<IUseable>();
+
+        //Update UI
+        UI.ui.Slots[SelectedSlot].sprite = item.sprite;
 		UI.ui.Slots[SelectedSlot].gameObject.SetActive(true);
 	}
 
@@ -142,16 +150,26 @@ public class Player : MonoBehaviour
 		}
 		if (Inventory[SelectedSlot].item.SelectedItemType == ItemType.BouncyGun || Inventory[SelectedSlot].item.SelectedItemType == ItemType.DuckBazooka)
 		{
+            AudioSource.PlayClipAtPoint(duckGunSound, Camera.main.transform.position);
 			SelectedItem.Use();
 		}
-		RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + GetComponent<Movement>().Aim.up * 1, 0.5f, Vector2.zero);
-		print(hits.Count());
-		print(SelectedItem);
-		if (hits != null && SelectedItem != null)
-		{
-			print("attack fired");
-			SelectedItem.Use(hits);
-		}
+        else
+        {
+            if (Inventory[SelectedSlot].item.SelectedItemType == ItemType.BasicSword)
+            {
+                AudioSource.PlayClipAtPoint(basicSwordSound, Camera.main.transform.position, 100);
+            }
+            else
+            {
+                AudioSource.PlayClipAtPoint(pinballSwordSound, Camera.main.transform.position);
+            }
+            RaycastHit2D[] hits = Physics2D.CircleCastAll(transform.position + GetComponent<Movement>().Aim.up * 1, 0.5f, Vector2.zero);
+            if (hits != null && SelectedItem != null)
+            {
+                SelectedItem.Use(hits);
+            }
+        }
+
 
 	}
 }

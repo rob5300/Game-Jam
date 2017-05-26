@@ -13,8 +13,9 @@ public class CamFollow : MonoBehaviour {
 	
 	void LateUpdate () {
         newPosition = transform.position - Offset;
-		if (target == null)
+		if (!target.activeSelf)
 		{
+            GameOverCanvasController.Controller.DisplayResult();
 			Time.timeScale = 0f;
 		}
 		else

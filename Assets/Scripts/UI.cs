@@ -7,8 +7,10 @@ public class UI : MonoBehaviour {
 
     public Image[] Slots;
     public Image[] Backgrounds;
+    public Slider HealthSlider;
+    public Text HealthText;
 
-    public void Start()
+    public void Awake()
     {
         if (!ui) ui = this;
     }

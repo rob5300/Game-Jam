@@ -15,6 +15,8 @@ public class Item : MonoBehaviour
 	public int Cost;
 	public int MaxCost;
 
+    public bool CanPickup = true;
+
 	protected virtual void Start()
 	{
 		if (SelectedItemType != ItemType.Consumable)
@@ -29,10 +31,15 @@ public class Item : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if (other.tag == "Player") Player.player.PickupItem(this);
+		if (other.tag == "Player" && CanPickup) Player.player.PickupItem(this);
 	}
 
-	private void Reset()
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!CanPickup && collision.tag == "Player") CanPickup = true;
+    }
+
+    private void Reset()
 	{
 		GetComponent<BoxCollider2D>().isTrigger = true;
 		sprite = GetComponent<SpriteRenderer>().sprite;

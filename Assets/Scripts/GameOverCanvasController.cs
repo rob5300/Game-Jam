@@ -8,14 +8,20 @@ using UnityEngine.SceneManagement;
 public class GameOverCanvasController : MonoBehaviour {
 	public Text TextObject;
 	public Button BtnRetry;
+    public static GameOverCanvasController Controller;
 
-	public void DisplayResult()
+    private void Start()
+    {
+        if (!Controller) Controller = this;
+    }
+
+    public void DisplayResult()
 	{
-		TextObject.enabled = true;
-		BtnRetry.enabled = true;
-		StringBuilder sb = new StringBuilder();
+		TextObject.gameObject.SetActive(true);
+		BtnRetry.gameObject.SetActive(true);
+        StringBuilder sb = new StringBuilder();
 		sb.Append("GAME OVER \r\n");
-		sb.Append("FNAL SCORE: ");
+		sb.Append("FINAL SCORE: ");
 		if (Game.DifficultyMultiplier == PlayerDifficultyMultiplier.Easy)
 		{
 			sb.Append(Movement.Player.transform.position.y);
@@ -33,7 +39,7 @@ public class GameOverCanvasController : MonoBehaviour {
 		//TextObject.text
 	}
 
-	public void Reset()
+	public void ResetScene()
 	{
 		SceneManager.LoadScene("Main");
 	}
